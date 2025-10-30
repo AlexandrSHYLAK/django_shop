@@ -1,0 +1,59 @@
+{% load static %}
+<div class="banner">
+			<div class="container">
+				<!--- img-slider --->
+				<div class="img-slider">
+						<!----start-slider-script---->
+					<script src="{% static 'shop/web/js/responsiveslides.min.js' %}"></script>
+					 <script>
+					    // You can also use "$(window).load(function() {"
+					    $(function () {
+					      // Slideshow 4
+					      $("#slider4").responsiveSlides({
+					        auto: true,
+					        pager: true,
+					        nav: true,
+					        speed: 500,
+					        namespace: "callbacks",
+					        before: function () {
+					          $('.events').append("<li>before event fired.</li>");
+					        },
+					        after: function () {
+					          $('.events').append("<li>after event fired.</li>");
+					        }
+					      });
+
+					    });
+					  </script>
+					<!----//End-slider-script---->
+					<!-- Slideshow 4 -->
+					    <div  id="top" class="callbacks_container">
+					      <ul class="rslides" id="slider4">
+					        <li>
+					          <img class="img-responsive" src="{% static 'shop/web/images/slide1.jpg' %}" alt="">
+					          <div class="slider-caption">
+					          	<h1>Beautiful & durable</h1>
+					          	<p>Classically simple and beautifully elegant Hard wearing leather shoes and hand-made with heart </p>
+					          </div>
+					        </li>
+					        <li>
+					          <img src="{% static 'shop/web/images/slide1.jpg' %}" alt="">
+					           <div class="slider-caption">
+					          	<h1>Beautiful & durable</h1>
+					          		<p>Classically simple and beautifully elegant Hard wearing leather shoes and hand-made with heart </p>
+					          </div>
+					        </li>
+					        <li>
+					          <img src="{% static 'shop/web/images/slide1.jpg' %}" alt="">
+					           <div class="slider-caption">
+					           	<h1>Beautiful & durable</h1>
+					           	<p>Classically simple and beautifully elegant Hard wearing leather shoes and hand-made with heart </p>
+					          </div>
+					        </li>
+					      </ul>
+					    </div>
+					    <div class="clearfix"> </div>
+					</div>
+						<!-- slider -->
+			</div>
+		</div>
