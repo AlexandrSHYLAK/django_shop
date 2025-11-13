@@ -1,0 +1,15 @@
+<div class="product-pic">
+    <img src="{{ product.get_first_photo }}" {{ product }}/>
+</div>
+<div class="product-pic-info">
+    <h3><a href="#">{{ product.get_absolute_url }}</a>{{ product }}</h3>
+    <div class="product-pic-info-price-cart">
+        <div class="product-pic-info-price">
+            <span>{{ product.price }}</span>
+        </div>
+        <div class="product-pic-info-cart">
+            <a class="p-btn" href="#">КУПИТЬ</a>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>

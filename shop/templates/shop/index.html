@@ -1,17 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 {{ title }}
 {% endblock %}
 
 {%  block main %}
-<main>
-		<!-- top-grids -->
-        {% include 'components/_top_grids.html' %}
-		<!-- top-grids -->
+<!-- banner -->
+{% include 'shop/components/_banner.html' %}
+<!-- banner -->
+{% include 'shop/components/_top_grids.html' %}
+{% include 'shop/components/_trending_products.html' %}
 
-		<!-- bottom-grids -->
-        {% include 'components/_bottom_grids.html' %}
-		<!-- bottom-grids -->
-</main>
 {% endblock main %}

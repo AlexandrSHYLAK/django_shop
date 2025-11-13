@@ -11,7 +11,8 @@ class Category(models.Model):
                                verbose_name='Категория', related_name='subсategories')
 
     def get_absolute_url(self):
-        pass
+        """Ссылка на страницу категории"""
+        return reverse('category_detail', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.title
@@ -22,6 +23,14 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+
+
+    def get_parent_category_photo(self):
+        """ для получения картинки родительской категории"""
+        if self.image:
+            return self.image.url
+        else:
+            return 'https://smtenergo.ru/static/img/nopic.jpg'
 
 class Product(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
@@ -38,6 +47,12 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         pass
+
+    def get_first_photo(self):
+        if self.images.first():
+            return self.images.first().image.url
+        else:
+            return 'https://smtenergo.ru/static/img/nopic.jpg'
 
     def __str__(self):
         return self.title

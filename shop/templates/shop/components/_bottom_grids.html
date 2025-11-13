@@ -130,7 +130,7 @@
 						<div class="sreen-gallery-cursual">
 							 <!-- requried-jsfiles-for owl -->
 							<link href="{% static 'shop/web/css/owl.carousel.css' %}" rel="stylesheet">
-							    <script src="web/js/owl.carousel.js"></script>
+							    <script src="{% static 'shop/web/js/owl.carousel.js' %}"></script>
 							        <script>
 									    $(document).ready(function() {
 									      $("#owl-demo1").owlCarousel({
@@ -229,7 +229,7 @@
 					                 <div class="item">
 					                	<div onclick="location.href='single-page.html';" class="product-grid">
 											<div class="product-pic">
-												<img src="{% static 'shop/web/images/p4.jpg" title="Elliot Boots" />
+												<img src="{% static 'shop/web/images/p4.jpg' %}" title="Elliot Boots" />
 											</div>
 											<div class="product-pic-info">
 												<h3><a href="#">Elliot Boots</a></h3>

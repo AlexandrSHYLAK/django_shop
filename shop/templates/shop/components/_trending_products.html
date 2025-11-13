@@ -1,0 +1,53 @@
+{% load static %}
+<div class="bottom-grids">
+			<div class="container">
+				<div class="col-md-9 bottom-grids-left">
+					<div class="f-products">
+						<h2>Рекомендуемые продукты</h2>
+							<!----sreen-gallery-cursual---->
+						<div class="sreen-gallery-cursual">
+							 <!-- requried-jsfiles-for owl -->
+							<link href="{% static 'shop/web/css/owl.carousel.css' %}" rel="stylesheet">
+							    <script src="{% static 'shop/web/js/owl.carousel.js' %}"></script>
+							        <script>
+									    $(document).ready(function() {
+									      $("#owl-demo").owlCarousel({
+									        items : 3,
+									        lazyLoad : true,
+									        autoPlay : true,
+									        navigation : true,
+									        navigationText :  false,
+									        pagination : false,
+									      });
+									    });
+									   </script>
+							 <!-- //requried-jsfiles-for owl -->
+							 <!-- start content_slider -->
+						       <div id="owl-demo" class="owl-carousel text-center">
+                                   {% for product in top_products %}
+					                <div class="item">
+					                	<div onclick="location.href='single-page.html';" class="product-grid">
+                                            {% include 'shop/components/_product_card.html' %}
+
+										</div>
+					                </div>
+                                   {% endfor %}
+
+				              </div>
+						<!--//sreen-gallery-cursual---->
+
+					</div>
+				</div>
+
+				</div>
+				<div class="col-md-3 bottom-grids-right">
+					<h2>Эксклюзивные предложения</h2>
+					<p>Подпишитесь на нашу рассылку и получайте эксклюзивные предложения прямо на свой почтовый ящик.</p>
+					<form>
+						<input type="text" class="text" value="Type your email address ..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type your email address ...';}">
+						<input type="submit" value="" />
+					</form>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>

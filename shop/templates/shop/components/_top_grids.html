@@ -1,0 +1,17 @@
+{% load static %}
+<div class="top-grids">
+			<div class="container">
+                {% for category in categories %}
+				<div class="col-md-4 top-grid text-center">
+					<div class="top-grid-pic">
+						<img src="{{ category.get_parent_category_photo }}" {{ category }}/>
+						<span>{{ category }}</span>
+					</div>
+					<div class="top-grid-pic-info">
+						<a href="{{ category.get_absolute_url }}">Все {{ category }}</a>
+					</div>
+				</div>
+                {% endfor %}
+				<div class="clearfix"> </div>
+			</div>
+		</div>
