@@ -1,9 +1,32 @@
+{% load shop_tags %}
+
+{% get_subcategories category as categories %}
+{% get_sorted as data %}
+
         <div class="top-nav">
 			<div class="container">
 				<span class="menu"> </span>
 				<ul>
-					<li class="active"><a href="index.html">Главная<span> </span></a></li>
-					<div class="clearfix"> </div>
+                    <li class="active"><a>Подкатегория: {{ category }}<span> </span></a></li>
+                    {% for category in categories %}
+					<li><a href="?type={{ category.slug }}">{{ category }}<span> </span></a></li>
+                    {% endfor %}
+					<div class="clearfix"></div>
 				</ul>
 			</div>
 		</div>
+
+        {% for key in data %}
+        <div class="top-nav">
+			<div class="container">
+				<span class="menu"> </span>
+				<ul>
+                    <li class="active"><a>{{ key.title }}<span> </span></a></li>
+                    {% for sorter in key.sorters %}
+					<li><a href="?sort={{ sorter.0 }}">{{ sorter.1 }}<span> </span></a></li>
+                    {% endfor %}
+					<div class="clearfix"></div>
+				</ul>
+			</div>
+		</div>
+        {% endfor %}
