@@ -13,7 +13,7 @@
 			<div class="container">
 				<div class="col-md-9 bottom-grids-left">
 					<div class="f-products">
-						<h2>Рекомендуемые продукты</h2>
+						<h2>{{ category }}</h2>
 							<!----sreen-gallery-cursual---->
 						<div class="sreen-gallery-cursual">
 							 <!-- requried-jsfiles-for owl -->
@@ -36,7 +36,7 @@
 						       <div id="owl-demo" class="owl-carousel text-center">
                                    {% for product in products %}
 					                <div class="item">
-					                	<div onclick="location.href='single-page.html';" class="product-grid">
+					                	<div onclick="location.href='{{ product.get_absolute_url }}'" class="product-grid">
                                             {% include 'shop/components/_product_card.html' %}
 
 										</div>

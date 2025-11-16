@@ -46,7 +46,7 @@ class Product(models.Model):
     color = models.CharField(max_length=30, default='Серебро', verbose_name='Цвет/Материал')
 
     def get_absolute_url(self):
-        pass
+        return reverse('product_page', kwargs={'slug': self.slug})
 
     def get_first_photo(self):
         if self.images.first():

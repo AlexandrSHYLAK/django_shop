@@ -2,7 +2,7 @@
     <img src="{{ product.get_first_photo }}" {{ product }}/>
 </div>
 <div class="product-pic-info">
-    <h3><a href="#">{{ product.get_absolute_url }}</a>{{ product }}</h3>
+    <h3><a href="{{ product.get_absolute_url }}">{{ product }}</a></h3>
     <div class="product-pic-info-price-cart">
         <div class="product-pic-info-price">
             <span>{{ product.price }}</span>

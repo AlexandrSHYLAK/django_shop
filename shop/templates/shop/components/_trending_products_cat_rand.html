@@ -24,7 +24,7 @@
 							 <!-- //requried-jsfiles-for owl -->
 							 <!-- start content_slider -->
 						       <div id="owl-demo" class="owl-carousel text-center">
-                                   {% for product in top_products %}
+                                   {% for product in products %}
 					                <div class="item">
 					                	<div onclick="location.href='{{ product.get_absolute_url }}';" class="product-grid">
                                             {% include 'shop/components/_product_card.html' %}

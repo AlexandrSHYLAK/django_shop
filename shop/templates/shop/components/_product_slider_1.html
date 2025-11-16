@@ -1,0 +1,40 @@
+{% load static %}
+<!-- Include the Etalage files -->
+<link rel="stylesheet" href="{% static 'shop/web/css/etalage.css' %}">
+<script src="{% static 'shop/web/js/jquery.etalage.min.js' %}"></script>
+<!-- Include the Etalage files -->
+<script>
+    jQuery(document).ready(function($){
+        $('#etalage').etalage({
+            thumb_image_width: 300,
+            thumb_image_height: 400,
+            source_image_width: 900,
+            source_image_height: 1000,
+            show_hint: true,
+            click_callback: function(image_anchor, instance_id){
+                alert('Callback example:\nYou clicked on an image with the anchor: "'+image_anchor+'"\n(in Etalage instance: "'+instance_id+'")');
+            }
+        });
+        // This is for the dropdown list example:
+        $('.dropdownlist').change(function(){
+            etalage_show( $(this).find('option:selected').attr('class') );
+        });
+    });
+</script>
+<!----//details-product-slider--->
+<div class="details-left">
+    <div class="details-left-slider">
+        <ul id="etalage" class="etalage" style="display: block; width: 314px; height: 552px;">
+
+            {% for image in product.images.all %}
+            <li class="etalage_thumb thumb_{{ forloop.counter }}">
+                <a href="optionallink.html">
+                    <img class="etalage_thumb_image" src="{{ image.image.url }}">
+                    <img class="etalage_source_image" src="{{ image.image.url }}">
+                </a>
+            </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
