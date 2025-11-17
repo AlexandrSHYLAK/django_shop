@@ -5,8 +5,12 @@
 				<div class="container">
 					<div class="rigister-info">
 						<ul>
-							<li><a href="#">Войти</a></li>
-							<li><a href="#">Зарегистрироваться</a></li>
+                            {% if request.user.is_authenticated %}
+							<li><a href="{% url 'user_logout' %}">Выйти</a></li>
+<!--							<li><a href="{% url 'login_registration' %}">Зарегистрироваться</a></li>-->
+                            {% else %}
+                            <li><a href="{% url 'login_registration' %}">Войти/Зарегистрироваться</a></li>
+                            {% endif %}
 							<div class="clearfix"> </div>
 						</ul>
 					</div>
