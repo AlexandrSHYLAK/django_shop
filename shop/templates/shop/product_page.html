@@ -15,11 +15,11 @@
 			<!---start-product-details--->
 			<div class="product-details">
 				<div class="container">
-					<ul class="product-head">
-						<li><a href="index.html">Home</a> <span>::</span></li>
-						<li class="active-page">{{ product }}</li>
-						<div class="clearfix"> </div>
-					</ul>
+<!--					<ul class="product-head">-->
+<!--						<li><a href="index.html">Home</a> <span>::</span></li>-->
+<!--						<li class="active-page">{{ product }}</li>-->
+<!--						<div class="clearfix"> </div>-->
+<!--					</ul>-->
 				<!----details-product-slider--->
 				<!-- Include the Etalage files -->
 					<link rel="stylesheet" href="{% static 'shop/web/css/etalage.css' %}">
@@ -68,7 +68,25 @@
 						<div class="details-right-head">
 						<h1>{{ product.title }}</h1>
 						<ul class="pro-rate">
-							<li><a href="#">0 отзывов Добавить отзыв</a></li>
+                            {% if request.user.is_authenticated %}
+                                <div class="container">
+                                    <form action="{% url 'save_review' product.pk %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {{ review_form }}
+                                    <button class="btn btn-success">Оставить отзыв</button>
+                                    </form>
+                                </div>
+                            {% else %}
+                                <div class="container">
+                                    <h4 class=text-center"">
+                                        Отзывы могут оставлять только зарегистрированные пользователи
+                                        <a href="{% url 'login_registration' %}">Войти/Зарегистрироваться</a>
+                                    </h4>
+                                </div>
+
+                            {% endif %}
+
+<!--							<li><a href="#">0 отзывов Добавить отзыв</a></li>-->
 						</ul>
 						<p class="product-detail-info">{{ product.description }}</p>
 						<a class="learn-more" href="#product-details" class="scroll-link"><h3>ПОДРОБНЕЕ</h3></a>
@@ -143,6 +161,19 @@
 {% include 'shop/components/_trending_products_cat_rand.html' %}
 		</div>
 		</div>
+        <div class="container">
+
+                <h3>ОТЗЫВЫ</h3>
+
+        </div>
+        {% for review in reviews %}
+        <div class="container">
+
+            <h4>{{ review.author.username }}: </h4>
+            <p>{{ review.created_aat }}</p>
+            <p>{{ review.text }}</p>
+        </div>
+        {% endfor %}
 		<!-- /Product-Details-page -->
 		<!-- footer -->
 <!--		<div class="footer">-->

@@ -6,7 +6,7 @@
 					<div class="rigister-info">
 						<ul>
                             {% if request.user.is_authenticated %}
-							<li><a href="{% url 'user_logout' %}">Выйти</a></li>
+							<li><a href="{% url 'user_logout' %}">{{ user.username }} Выйти</a></li>
 <!--							<li><a href="{% url 'login_registration' %}">Зарегистрироваться</a></li>-->
                             {% else %}
                             <li><a href="{% url 'login_registration' %}">Войти/Зарегистрироваться</a></li>

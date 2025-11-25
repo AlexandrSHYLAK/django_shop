@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from  django.urls import path
 from  .views import *
 
@@ -10,5 +12,7 @@ urlpatterns = [
     path('login', user_login, name='user_login'),
     path('logout', user_logout, name='user_logout'),
     path('register', user_registration, name='user_registration'),
+    path('save_review/<int:product_pk>', save_review, name='save_review'),
+    # patch('add_favorite/<slug:product_slug>/', save_favorite_product, name='add_favorite'),
     # path('', Contact.as_view(), name='contact'),
 ]

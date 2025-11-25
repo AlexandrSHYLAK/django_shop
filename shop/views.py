@@ -6,8 +6,9 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth import login, logout
 from django.contrib import messages
 
-from .models import Category, Product
-from .forms import LoginForm, RegistrationForm
+from .models import Category, Product, Review, FavoriteProducts
+
+from .forms import LoginForm, RegistrationForm, ReviewForm
 
 class Index(ListView):
     """Главная страница"""
@@ -82,6 +83,10 @@ class ProductPage(DetailView):
 
         data = Product.objects.all().exclude(slug=self.kwargs['slug']).filter(category=product.category)[:5]
         context['products'] = data
+        context['reviews'] = Review.objects.filter(product=product).order_by('-pk')
+        if self.request.user.is_authenticated:
+            context['review_form'] = ReviewForm
+
         return context
 
 
@@ -122,3 +127,35 @@ def user_registration(request):
             messages.error(request, form.errors[error].as_text())
         # messages.error(request, "Что-то пошло не так")
         return redirect('login_registration')
+
+def save_review(request, product_pk):
+    """Сохранение отзывов"""
+    form = ReviewForm(data=request.POST)
+    if form.is_valid():
+        review = form.save(commit=False)
+        review.author = request.user
+        product = Product.objects.get(pk=product_pk)
+        review.product = product
+        review.save()
+        return redirect('product_page', product.slug)
+
+
+def save_favorite_product(request, product_slug):
+    """Добавление или удаление товаров с избранных"""
+    if request.user.is_authenticated:
+        user = request.user
+        product = Product.objects.get(slug=product_slug)
+        favorite_products = FavoriteProducts.objects.filter(user=user)
+        if product in [i.product for i in favorite_products]:#кверисет разбираем в лист
+            fav_product = FavoriteProducts.objects.get(user=user, product=product)
+            fav_product.delete()
+        else:
+            FavoriteProducts.objects.create(user=user, product=product)
+
+        next_page = request.META.get('HTTP_REFERER', 'category_detail')
+        return redirect(next_page)
+
+
+
+
+

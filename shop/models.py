@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 # from django.contrib.auth.models import User
@@ -71,3 +72,31 @@ class Gallery(models.Model):
     class Meta:
         verbose_name = 'Изображение'
         verbose_name_plural = 'Галерея товаров'
+
+
+class Review(models.Model):
+    """Модель для отзывов"""
+    text = models.TextField(verbose_name='Текст')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    created_aat = models.DateField(auto_now_add=True, verbose_name='Дата')
+
+    def __str__(self):
+        return self.author.username
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+
+class FavoriteProducts(models.Model):
+    """Избранные товары"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Товар')
+
+    def __str__(self):
+        return self.product.title
+
+    class Meta:
+        verbose_name = 'Избранный товар'
+        verbose_name_plural = 'Избранные товары'
