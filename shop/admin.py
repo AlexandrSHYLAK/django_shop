@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Product, Category, Gallery, Review
+from .models import Product, Category, Gallery, Review, Mail
 
 
 @admin.register(Category)
@@ -47,8 +47,6 @@ class ProductAdmin(admin.ModelAdmin):
     get_photo.short_description = 'Миниатюра'
 
 
-
-
 admin.site.register(Gallery)
 
 admin.site.register(Review)
@@ -56,3 +54,10 @@ class ReviewAdmin(admin.ModelAdmin):
     """Отображение отзывов в админке"""
     list_display = ('pk', 'author', 'created_aat')
     readonly_fields = ('author', 'text', 'created_aat')
+
+
+@admin.register(Mail)
+class ReviewMail(admin.ModelAdmin):
+    """Почтовые подписки"""
+    list_display = ('pk', 'mail', 'user')
+    readonly_fields = ('mail', 'user')

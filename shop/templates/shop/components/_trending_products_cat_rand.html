@@ -43,8 +43,9 @@
 				<div class="col-md-3 bottom-grids-right">
 					<h2>Эксклюзивные предложения</h2>
 					<p>Подпишитесь на нашу рассылку и получайте эксклюзивные предложения прямо на свой почтовый ящик.</p>
-					<form>
-						<input type="text" class="text" value="Type your email address ..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type your email address ...';}">
+                    <form action="{% url 'save_subscribers' %}" method="post">
+                        {% csrf_token %}
+						<input name="email" type="text" class="text" value="Введите свой адрес электронной почты ..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type your email address ...';}">
 						<input type="submit" value="" />
 					</form>
 				</div>

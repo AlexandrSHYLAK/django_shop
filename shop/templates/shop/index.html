@@ -7,6 +7,15 @@
 
 {%  block main %}
 <!-- banner -->
+{% if messages%}
+        <div class="container">
+            {% for message in messages %}
+            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% include 'shop/components/_banner.html' %}
 <!-- banner -->
 {% include 'shop/components/_top_grids.html' %}

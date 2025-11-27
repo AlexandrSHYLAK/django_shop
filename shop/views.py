@@ -1,12 +1,13 @@
 from random import randint
 from unicodedata import category
 
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login, logout
 from django.contrib import messages
 
-from .models import Category, Product, Review, FavoriteProducts
+from .models import Category, Product, Review, FavoriteProducts, Mail
 
 from .forms import LoginForm, RegistrationForm, ReviewForm
 
@@ -154,6 +155,18 @@ def save_favorite_product(request, product_slug):
 
         next_page = request.META.get('HTTP_REFERER', 'category_detail')
         return redirect(next_page)
+
+def save_subscribers(request):
+    """Сохранение почтовых адресов"""
+    email = request.POST.get('email')
+    user =  request.user if request.user.is_authenticated else None
+    if email:
+        try:
+            Mail.objects.create(mail=email, user=user)
+        except IntegrityError:
+            messages.error(request, "Вы уже подписаны")
+    return redirect('index')
+
 
 
 
