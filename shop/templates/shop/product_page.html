@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load shop_tags %}
 
 {% block title %}
 {{ title }}
@@ -8,6 +9,7 @@
 {%  block main %}
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 		<!-- Product-Details-page -->
 		<div class="details-page">
@@ -89,11 +91,10 @@
 <!--							<li><a href="#">0 отзывов Добавить отзыв</a></li>-->
 						</ul>
 						<p class="product-detail-info">{{ product.description }}</p>
-						<a class="learn-more" href="#product-details" class="scroll-link"><h3>ПОДРОБНЕЕ</h3></a>
+						<a class="learn-more" href="#product-details" class="scroll-link"><h2>ПОДРОБНЕЕ</h2></a>
 						<div class="product-more-details">
 							<ul class="price-avl">
-								<li class="price"><span>BYN {{ product.price }}</span><label>BYN {{ product.price }}</label></li>
-								<li class="stock"><i>В наличии</i></li>
+								<li class="price"><label>BYN {{ product.price }}</label></li>
 								<div class="clearfix"> </div>
 							</ul>
 <!--							<ul class="product-colors">-->
@@ -119,6 +120,18 @@
 <!--									<option>6</option>-->
 <!--								</select>-->
 <!--							</ul>-->
+
+                            {% if request.user.is_authenticated %}
+                                {% get_favorite_products request.user as fav_products %}
+                            {% endif %}
+
+                            {% if product in fav_products and request.user.is_authenticated %}
+                                <a href="{% url 'add_favorite' product.slug %}" class="favorite-btn" title="Удалить из избранного">
+                                    <i class="fas fa-heart" style="color:red"></i>Удалить из избранного</a>
+                            {% else %}
+                                <a href="{% url 'add_favorite' product.slug %}" class="favorite-btn" title="Добавить в избранное">
+                                    <i class="fas fa-heart" style="color:black"></i>Добавить в избранное</a>
+                            {% endif %}
                             <a href="{% url 'to_cart' product.pk 'add' %}"><input type="button" value="ДОБАВИТЬ В КОРЗИНУ"></a>
 
 

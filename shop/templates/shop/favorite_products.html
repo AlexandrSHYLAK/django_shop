@@ -1,9 +1,19 @@
+{% extends 'base.html' %}
 {% load static %}
-<div class="bottom-grids">
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{%  block main %}
+
+
+<main>
+    <div class="bottom-grids">
 			<div class="container">
 				<div class="col-md-9 bottom-grids-left">
 					<div class="f-products">
-						<h2>Рекомендуемые продукты</h2>
+						<h2>Избранные товары</h2>
 							<!----sreen-gallery-cursual---->
 						<div class="sreen-gallery-cursual">
 							 <!-- requried-jsfiles-for owl -->
@@ -23,32 +33,36 @@
 									   </script>
 							 <!-- //requried-jsfiles-for owl -->
 							 <!-- start content_slider -->
+                            {% if products %}
 						       <div id="owl-demo" class="owl-carousel text-center">
-                                   {% for product in top_products %}
+                                   {% for product in products %}
+
 					                <div class="item">
-					                	<div class="product-grid">
+					                	<div onclick="location.href='{{ product.get_absolute_url }}'" class="product-grid">
                                             {% include 'shop/components/_product_card.html' %}
 
 										</div>
 					                </div>
                                    {% endfor %}
-
 				              </div>
+                            {% else %}
+                            <h2>У вас нет избранных товаров</h2>
+                            {% endif %}
 						<!--//sreen-gallery-cursual---->
 
 					</div>
 				</div>
-
 				</div>
 				<div class="col-md-3 bottom-grids-right">
 					<h2>Эксклюзивные предложения</h2>
 					<p>Подпишитесь на нашу рассылку и получайте эксклюзивные предложения прямо на свой почтовый ящик.</p>
-					<form action="{% url 'save_subscribers' %}" method="post">
-                        {% csrf_token %}
-						<input name="email" type="text" class="text" value="Введите свой адрес электронной почты ..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type your email address ...';}">
+					<form>
+						<input type="text" class="text" value="Type your email address ..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type your email address ...';}">
 						<input type="submit" value="" />
 					</form>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
 		</div>
+</main>
+{% endblock main %}

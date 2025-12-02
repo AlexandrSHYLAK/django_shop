@@ -9,11 +9,14 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
+from dotenv import *
+
+load_dotenv()
 
 from django.conf.global_settings import STATICFILES_DIRS, MEDIA_URL, EMAIL_BACKEND, EMAIL_HOST, EMAIL_PORT, \
-    EMAIL_USE_TLS
+    EMAIL_USE_TLS, SECRET_KEY
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,10 +26,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sx(znn!d($lpz2#hf&k4!9(37l=knuh^9%g+#lbq2+z++-%l^b'
+SECRET_KEY = os.getenv('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.getenv('DEBUG')))
 
 ALLOWED_HOSTS = []
 
@@ -142,18 +146,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST='smtp.yandex.ru'
-# EMAIL_PORT=465
-# EMAIL_USE_SSL=True
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER='trixter12345678@yandex.ru'
-EMAIL_HOST_PASSWORD=''
-
-
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST=os.getenv('EMAIL_HOST')
-# EMAIL_PORT=os.getenv('EMAIL_PORT')
-# EMAIL_USE_TLS=boo;(int(os.getenv('EMAIL_USE_TLS')))
-# USER_EMAIL=os.getenv('USER_EMAIL')
-# USER_EMAIL_PASSWORD=os.getenv('USER_EMAIL_PASSWORD')
+EMAIL_HOST=os.getenv('EMAIL_HOST')
+EMAIL_PORT=os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS=bool(int(os.getenv('EMAIL_USE_TLS')))
+EMAIL_HOST_USER=os.getenv('USER_EMAIL')
+EMAIL_HOST_PASSWORD=os.getenv('USER_EMAIL_PASSWORD')

@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login, logout
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Category, Product, Review, FavoriteProducts, Mail
 
@@ -220,7 +221,18 @@ def checkout(request):
                'title': 'Оформление заказа'}
     return render(request, 'shop/checkout.html', context)
 
+class FavoriteProductsView(LoginRequiredMixin, ListView):
+    """Вывод избранных товаров"""
+    model = FavoriteProducts
+    context_object_name = 'products'
+    template_name = 'shop/favorite_products.html'
+    login_url = 'user_registration'
 
-
+    def get_queryset(self):
+        """Получение товаровконкретного пользователя"""
+        # user = self.request.user
+        favs = FavoriteProducts.objects.filter(user=self.request.user)
+        products = [i.product for i in favs]
+        return products
 
 

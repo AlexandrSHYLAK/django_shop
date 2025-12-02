@@ -1,15 +1,48 @@
+{% load static %}
+{% load shop_tags %}
+
+ <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .favorite-icon {
+            color: #ccc;
+            transition: color 0.3s ease;
+            font-size: 20px;
+        }
+
+        .favorite-icon.active {
+            color: #ff0000;
+        }
+    </style>
+
 <div class="product-pic">
-    <img src="{{ product.get_first_photo }}" {{ product }}/>
+    <img src="{{ product.get_first_photo }}" alt="{{ product }}"/>
 </div>
 <div class="product-pic-info">
-    <h3><a href="{{ product.get_absolute_url }}">{{ product }}</a></h3>
+    <h3>{{ product }}</h3>
     <div class="product-pic-info-price-cart">
         <div class="product-pic-info-price">
             <span>{{ product.price }}</span>
         </div>
         <div class="product-pic-info-cart">
+            {% if request.user.is_authenticated %}
+                {% get_favorite_products request.user as fav_products %}
+            {% endif %}
+
+            {% if product in fav_products and request.user.is_authenticated %}
+                <a href="{% url 'add_favorite' product.slug %}" class="favorite-btn"
+                   title="Удалить из избранного">
+                    <i class="fas fa-heart" style="color:red"></i>
+                </a>
+            {% else %}
+                <a href="{% url 'add_favorite' product.slug %}" class="favorite-btn"
+               title="Добавить в избранное">
+                <i class="fas fa-heart" style="color:black"></i>
+            </a>
+            {% endif %}
             <a class="p-btn" href="{{ product.get_absolute_url }}">Посмотреть</a>
         </div>
-        <div class="clearfix"> </div>
+        <div class="clearfix"></div>
     </div>
 </div>
