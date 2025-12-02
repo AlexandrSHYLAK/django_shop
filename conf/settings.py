@@ -148,7 +148,7 @@ EMAIL_HOST='smtp.yandex.ru'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER='trixter12345678@yandex.ru'
-EMAIL_HOST_PASSWORD='uhvtgvylzdclivqa'
+EMAIL_HOST_PASSWORD=''
 
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
