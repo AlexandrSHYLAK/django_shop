@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{%  block main %}
+<div class="container">
+        <header>
+            <h1>Оформление заказа</h1>
+            <p>Пожалуйста, заполните контактные данные и адрес доставки</p>
+        </header>
+
+        <!-- Блок сводки заказа -->
+        <div class="order-summary">
+            <h2>Ваш заказ</h2>
+
+            <div class="summary-items">
+                {% for item in order_products %}
+                <div class="summary-item">
+                    <div class="item-name">{{ item.product.title }}</div>
+                    <div class="item-quantity">{{ item.quantity }} × {{ item.product.price }} BYN</div>
+                    <div class="item-price">{{ item.get_total_price }} BYN</div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="summary-totals">
+                <div class="total-row">
+                    <span>Товары ({{ order.get_cart_total_quantity }} шт.)</span>
+                    <span>{{ order.get_cart_total_price }} BYN</span>
+                </div>
+
+                <div class="total-row">
+                    <span>Доставка</span>
+                    <span>Бесплатно</span>
+                </div>
+
+<!--                <div class="total-row">-->
+<!--                    <span>Скидка</span>-->
+<!--                    <span style="color: green;">-300 ₽</span>-->
+<!--                </div>-->
+
+                <div class="total-row grand-total">
+                    <span>К ОПЛАТЕ</span>
+                    <span>{{ order.get_cart_total_price }} BYN</span>
+                </div>
+            </div>
+        </div>
+
+        <form action="/submit-order/" method="POST" class="order-form">
+            {% csrf_token %}
+
+            <!-- Секция данных покупателя -->
+            <section class="section">
+                <h2 class="section-title">Контактная информация</h2>
+
+                <div class="form-group">
+                    <label>Имя *</label>
+                    {{ customer_form.first_name }}
+                </div>
+
+                <div class="form-group">
+                    <label>Фамилия *</label>
+                    {{ customer_form.last_name }}
+                </div>
+
+                <div class="form-group">
+                    <label>Электронная почта *</label>
+                    {{ customer_form.email }}
+                </div>
+
+                <div class="form-group">
+                    <label >Контактный телефон *</label>
+                    {{ customer_form.phone }}
+                </div>
+            </section>
+
+            <!-- Секция адреса доставки -->
+            <section class="section">
+                <h2 class="section-title">Адрес доставки</h2>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label>Город *</label>
+                        {{ shipping_form.city }}
+                    </div>
+
+                    <div class="form-group">
+                        <label>Область/Регион *</label>
+                        {{ shipping_form.state }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Улица, дом, квартира *</label>
+                    {{ shipping_form.street }}
+                </div>
+
+            </section>
+
+            <!-- Кнопки отправки формы -->
+            <div class="buttons">
+                <button type="button" class="btn btn-secondary" onclick="window.history.back()">
+                    ← Вернуться назад
+                </button>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    Подтвердить заказ
+                </button>
+
+                <button type="reset" class="btn btn-secondary">
+                    Очистить форму
+                </button>
+            </div>
+        </form>
+
+        <footer>
+            <p>© 2023 Магазин. Все права защищены.</p>
+            <p>Контактный телефон: +375 (33) 123-45-67</p>
+        </footer>
+    </div>
+
+    <script>
+        // Валидация формы перед отправкой
+        document.querySelector('form').addEventListener('submit', function(event) {
+            const requiredFields = document.querySelectorAll('input[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = 'red';
+                } else {
+                    field.style.borderColor = '#b0aaa0';
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault();
+                alert('Пожалуйста, заполните все обязательные поля (отмечены *).');
+            } else {
+                // Блокировка кнопки отправки
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('submitBtn').innerText = 'Заказ отправляется...';
+            }
+        });
+
+        // Валидация email
+        document.getElementById('id_email').addEventListener('blur', function() {
+            const email = this.value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (email && !emailPattern.test(email)) {
+                this.style.borderColor = 'red';
+                alert('Пожалуйста, введите корректный email адрес.');
+            } else if (email) {
+                this.style.borderColor = '#8b4613';
+            }
+        });
+
+        // Валидация телефона
+        document.getElementById('id_phone').addEventListener('blur', function() {
+            const phone = this.value.replace(/\D/g, '');
+
+            if (phone && phone.length < 10) {
+                this.style.borderColor = 'red';
+                alert('Номер телефона должен содержать не менее 10 цифр.');
+            } else if (phone) {
+                this.style.borderColor = '#8b4613';
+            }
+        });
+
+        // Обновление суммы при изменении количества товаров
+        document.getElementById('id_quantity').addEventListener('change', function() {
+            const quantity = parseInt(this.value);
+            if (quantity > 0) {
+                // Здесь можно добавить логику пересчета суммы
+                console.log('Количество товаров изменено на:', quantity);
+            }
+        });
+    </script>
+
+
+{% endblock main %}

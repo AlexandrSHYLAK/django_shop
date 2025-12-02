@@ -32,3 +32,27 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = ('text', )
         widget = {'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Ваш отзыв'})}
+
+
+class CustomerForm(forms.ModelForm):
+    """Контактная информация"""
+
+    class Meta:
+        model = Customer
+        fields = ('first_name', 'last_name', 'email', 'phone')
+        widgets = {'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Иван'}),
+                   'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Иванов'}),
+                   'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'ivan@ivanov.ru'}),
+                   'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+375291234567'})
+                   }
+
+class ShippingForm(forms.ModelForm):
+    """Адрес доставки"""
+
+    class Meta:
+        model = ShippingAddress
+        fields = ('city', 'state', 'street')
+        widget = {'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Минск'}),
+                   'state': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Минская'}),
+                   'street': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Дом/Улица/Фонарь/Аптека'})
+                   }

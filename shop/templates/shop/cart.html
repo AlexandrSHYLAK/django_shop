@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{%  block main %}
+
+    <div class="container">
+        <header>
+            <h3>🛒 Корзина покупок</h3>
+            <p class="subtitle">Оформление заказа в нашем интернет-магазине</p>
+        </header>
+
+        <div class="cart-container">
+            <div class="products-section">
+                <h2 class="section-title">Товары в корзине</h2>
+
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Продукт</th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                            <th>Стоимость</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order_products %}
+                        <tr>
+                            <td>
+                                <div class="product-info">
+                                    <a href="{% url 'product_page' item.product.slug %}"><img src="{{ item.product.get_first_photo }}" alt="Смартфон" class="product-image"></a>
+                                    <div>
+                                        <div class="product-name"><a href="{% url 'product_page' item.product.slug %}">{{ item.product.title }}</a></div>
+                                        <div class="product-category">{{ item.product.category }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="price">{{ item.product.price }} BYN</div>
+                            </td>
+                            <td>
+                                <div class="quantity-controls">
+                                    {% if 'cart' in request.path %}
+                                        <a href="{% url 'to_cart' item.product.pk 'delete' %}" class="quantity-link">
+                                            <button type="button" class="quantity-btn">-</button>
+                                        </a>
+                                        <span class="quantity-display">{{ item.quantity }}</span>
+                                        <a href="{% url 'to_cart' item.product.pk 'add' %}" class="quantity-link">
+                                            <button type="button" class="quantity-btn">+</button>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="item-total">{{ item.get_total_price }} BYN</div>
+                            </td>
+                            <td>
+                                <a href="{% url 'to_cart' item.product.pk 'remove' %}"><button class="remove-btn">Удалить</button></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="actions">
+                    <a href="{% url 'index' %}"><button class="action-btn">Продолжить покупки</button></a>
+                </div>
+            </div>
+
+            <div class="summary-section">
+                <h2 class="section-title">Сводка заказа</h2>
+
+                <div class="summary-row">
+                    <span class="summary-label">Товары ({{ order.get_cart_total_quantity }} шт.)</span>
+                    <span class="summary-value">{{ order.get_cart_total_price }} BYN</span>
+                </div>
+<!--                <div class="summary-row">-->
+<!--                    <span class="summary-label">Скидка</span>-->
+<!--                    <span class="summary-value">- 5 000 ₽</span>-->
+<!--                </div>-->
+                <div class="summary-row">
+                    <span class="summary-label">Доставка</span>
+                    <span class="summary-value">Бесплатно</span>
+                </div>
+
+                <div class="total-row">
+                    <span class="total-label">Итого к оплате:</span>
+                    <span class="total-value">{{ order.get_cart_total_price }} BYN</span>
+                </div>
+
+<!--                <div class="discount-code">-->
+<!--                    <input type="text" class="discount-input" placeholder="Промокод">-->
+<!--                    <button class="apply-btn">Применить</button>-->
+<!--                </div>-->
+
+                <a href="{% url 'checkout' %}"><button class="checkout-btn">Перейти к оформлению</button></a>
+                <a href="{% url 'index' %}" class="continue-shopping">Продолжить покупки</a>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock main %}

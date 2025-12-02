@@ -138,9 +138,22 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# DEFAULT_CHARSET = 'utf-8'
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USE_TLS=True
-USER_EMAIL=trix@mail.ru
-USER_EMAIL_PASSWORD=СорокТысячОбезьянВЖопуСунулиБанан
+EMAIL_HOST='smtp.yandex.ru'
+# EMAIL_PORT=465
+# EMAIL_USE_SSL=True
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER='trixter12345678@yandex.ru'
+EMAIL_HOST_PASSWORD='uhvtgvylzdclivqa'
+
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST=os.getenv('EMAIL_HOST')
+# EMAIL_PORT=os.getenv('EMAIL_PORT')
+# EMAIL_USE_TLS=boo;(int(os.getenv('EMAIL_USE_TLS')))
+# USER_EMAIL=os.getenv('USER_EMAIL')
+# USER_EMAIL_PASSWORD=os.getenv('USER_EMAIL_PASSWORD')

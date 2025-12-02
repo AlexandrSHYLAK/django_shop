@@ -96,30 +96,30 @@
 								<li class="stock"><i>В наличии</i></li>
 								<div class="clearfix"> </div>
 							</ul>
-							<ul class="product-colors">
-								<h3>доступные цвета ::</h3>
-								<li><a class="color1" href="#"><span> </span></a></li>
-								<li><a class="color2" href="#"><span> </span></a></li>
-								<li><a class="color3" href="#"><span> </span></a></li>
-								<li><a class="color4" href="#"><span> </span></a></li>
-								<li><a class="color5" href="#"><span> </span></a></li>
-								<li><a class="color6" href="#"><span> </span></a></li>
-								<li><a class="color7" href="#"><span> </span></a></li>
-								<li><a class="color8" href="#"><span> </span></a></li>
-								<div class="clearfix"> </div>
-							</ul>
-							<ul class="prosuct-qty">
-								<span>Количество:</span>
-								<select>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-									<option>6</option>
-								</select>
-							</ul>
-							<input type="button" value="ДОБАВИТЬ В КОРЗИНУ">
+<!--							<ul class="product-colors">-->
+<!--								<h3>доступные цвета ::</h3>-->
+<!--								<li><a class="color1" href="#"><span> </span></a></li>-->
+<!--								<li><a class="color2" href="#"><span> </span></a></li>-->
+<!--								<li><a class="color3" href="#"><span> </span></a></li>-->
+<!--								<li><a class="color4" href="#"><span> </span></a></li>-->
+<!--								<li><a class="color5" href="#"><span> </span></a></li>-->
+<!--								<li><a class="color6" href="#"><span> </span></a></li>-->
+<!--								<li><a class="color7" href="#"><span> </span></a></li>-->
+<!--								<li><a class="color8" href="#"><span> </span></a></li>-->
+<!--								<div class="clearfix"> </div>-->
+<!--							</ul>-->
+<!--							<ul class="prosuct-qty">-->
+<!--								<span>Количество:</span>-->
+<!--								<select>-->
+<!--									<option>1</option>-->
+<!--									<option>2</option>-->
+<!--									<option>3</option>-->
+<!--									<option>4</option>-->
+<!--									<option>5</option>-->
+<!--									<option>6</option>-->
+<!--								</select>-->
+<!--							</ul>-->
+                            <a href="{% url 'to_cart' product.pk 'add' %}"><input type="button" value="ДОБАВИТЬ В КОРЗИНУ"></a>
 
 
                             <div id="product-details" class="product-details-section">

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f7f6ee;
+            color: #4f4844;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #8b4613;
+        }
+
+        h1 {
+            color: #8b4613;
+            font-size: 2.5rem;
+        }
+
+        /* Стили для блока сводки заказа */
+        .order-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 2px solid #8b4613;
+        }
+
+        .order-summary h2 {
+            color: #8b4613;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .summary-items {
+            margin-bottom: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            flex: 2;
+            font-weight: bold;
+        }
+
+        .item-quantity {
+            flex: 1;
+            text-align: center;
+            color: #8b4613;
+        }
+
+        .item-price {
+            flex: 1;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .summary-totals {
+            background-color: #f7f6ee;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #b0aaa0;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .total-row.grand-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #8b4613;
+            border-top: 2px solid #8b4613;
+            margin-top: 10px;
+            padding-top: 15px;
+        }
+
+        .order-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 2px solid #8b4613;
+        }
+
+        .section-title {
+            color: #8b4613;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4f4844;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #b0aaa0;
+            border-radius: 6px;
+            font-size: 1rem;
+            background-color: #f7f6ee;
+            color: #4f4844;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #8b4613;
+        }
+
+        .quantity-field {
+            background-color: #f7f6ee;
+            border: 2px solid #b0aaa0;
+            color: #4f4844;
+            width: 80px;
+            padding: 8px;
+            text-align: center;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background-color: #f7f6ee;
+            color: #8b4613;
+            border: 2px solid #8b4613;
+        }
+
+        .btn-primary:hover {
+            background-color: #8b4613;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #b0aaa0;
+            color: white;
+            border: 2px solid #b0aaa0;
+        }
+
+        .btn-secondary:hover {
+            background-color: #8b4613;
+            color: white;
+            border-color: #8b4613;
+        }
+
+        .btn:disabled {
+            background-color: #b0aaa0;
+            color: #8b4613;
+            border: 2px solid #b0aaa0;
+            cursor: not-allowed;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #8b4613;
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #b0aaa0;
+        }
+
+        @media (max-width: 768px) {
+            .order-form {
+                flex-direction: column;
+            }
+
+            .section {
+                width: 100%;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .summary-item {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .item-quantity, .item-price {
+                text-align: left;
+            }
+        }

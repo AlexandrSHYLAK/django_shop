@@ -9,7 +9,8 @@ from django.contrib import messages
 
 from .models import Category, Product, Review, FavoriteProducts, Mail
 
-from .forms import LoginForm, RegistrationForm, ReviewForm
+from .forms import LoginForm, RegistrationForm, ReviewForm, ShippingForm, CustomerForm
+from .utils import CartForAuthenticatedUser, get_cart_data
 
 class Index(ListView):
     """Главная страница"""
@@ -167,6 +168,57 @@ def save_subscribers(request):
             messages.error(request, "Вы уже подписаны")
     return redirect('index')
 
+def send_mail_to_subscribers(request):
+    """Отправка писем подписчикам"""
+    from conf import settings
+    from django.core.mail import send_mail
+    if request.method == 'POST':
+        text = request.POST.get('text')
+        mail_list = Mail.objects.all()
+        for email in mail_list:
+            send_mail(
+                subject="У нас новая акция",
+                message=text,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[email],
+                fail_silently=False,
+            )
+            print(f'Сообщение отправлено на почту: {email} ----- {bool(send_mail)}')
+    context = {'title': 'Спамер'}
+    return render(request, 'shop/send_mail.html', context)
+
+
+def cart(request):
+    """Страница корзины"""
+    cart_info = get_cart_data(request)
+    context = {'order': cart_info['order'],
+               'order_products': cart_info['order_products'],
+               'cart_total_quantity': cart_info['cart_total_quantity'],
+               'title': 'Корзина'}
+
+    return render(request, 'shop/cart.html', context)
+
+def to_cart(request, product_id, action):
+    """Добавляет товар в корзину"""
+    if request.user.is_authenticated:
+        CartForAuthenticatedUser(request, product_id, action)
+        return redirect('cart')
+    else:
+        messages.error(request, 'Авторизируйтесь или зарегистрируйтесь чтобы совершать покупки')
+        return redirect('login_regisration')
+
+
+
+def checkout(request):
+    """Страница оформления заказа"""
+    cart_info = get_cart_data(request)
+    context = {'order': cart_info['order'],
+               'order_products': cart_info['order_products'],
+               'cart_total_quantity': cart_info['cart_total_quantity'],
+               'customer_form': CustomerForm(),
+               'shipping_form': ShippingForm(),
+               'title': 'Оформление заказа'}
+    return render(request, 'shop/checkout.html', context)
 
 
 

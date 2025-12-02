@@ -13,7 +13,11 @@ urlpatterns = [
     path('logout', user_logout, name='user_logout'),
     path('register', user_registration, name='user_registration'),
     path('save_review/<int:product_pk>', save_review, name='save_review'),
-    path('save_email/', save_subscribers, name='save_subscribers')
+    path('save_email/', save_subscribers, name='save_subscribers'),
+    path('send_mail', send_mail_to_subscribers, name='send_mail'),
+    path('cart/', cart, name='cart'),
+    path('to_cart/<int:product_id>/<str:action>/', to_cart, name='to_cart'),
+    path('checkout/', checkout, name='checkout'),
     # patch('add_favorite/<slug:product_slug>/', save_favorite_product, name='add_favorite'),
     # path('', Contact.as_view(), name='contact'),
 ]
