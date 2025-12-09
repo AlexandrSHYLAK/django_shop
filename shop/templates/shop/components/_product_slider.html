@@ -13,9 +13,7 @@
 								source_image_width: 900,
 								source_image_height: 1000,
 								show_hint: true,
-								click_callback: function(image_anchor, instance_id){
-									alert('Callback example:\nYou clicked on an image with the anchor: "'+image_anchor+'"\n(in Etalage instance: "'+instance_id+'")');
-								}
+
 							});
 							// This is for the dropdown list example:
 							$('.dropdownlist').change(function(){
@@ -31,7 +29,7 @@
 
                             {% for image in product.images.all %}
 							<li class="etalage_thumb thumb_1" style="display: none; opacity: 0; background-image: none;">
-								<a href="optionallink.html">
+
 									<img class="etalage_thumb_image" src="{{ image.image.url }}" style="display: inline; width: 300px; height: 400px; opacity: 1;">
 									<img class="etalage_source_image" src="{{ image.image.url }}">
 								</a>

@@ -7,7 +7,7 @@
 			<div class="container">
 				<span class="menu"> </span>
 				<ul>
-                    <li class="active"><a>Подкатегория: {{ category }}<span> </span></a></li>
+                    <li class="active"><a>Категория: {{ category }}<span> </span></a></li>
                     {% for category in categories %}
 					<li><a href="?type={{ category.slug }}">{{ category }}<span> </span></a></li>
                     {% endfor %}

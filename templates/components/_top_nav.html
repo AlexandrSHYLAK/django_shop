@@ -3,12 +3,12 @@
 				<span class="menu"> </span>
 				<ul>
 					<li class="active"><a href="{% url 'index' %}">Главная<span> </span></a></li>
-					<li><a href="collections.html">Колекции<span> </span></a></li>
-					<li><a href="404.html">Новые поступления<span> </span></a></li>
-					<li><a href="404.html">Распродажа<span> </span></a></li>
-					<li><a href="404.html">Аксесуары<span> </span></a></li>
-					<li><a href="about.html">О нас<span> </span></a></li>
-					<li><a href="contact.html">Контакты<span> </span></a></li>
+					<li><a href="{% url 'collections' %}">Колекции<span> </span></a></li>
+					<li><a href="{% url 'new_arrivals' %}">Новые поступления<span> </span></a></li>
+					<li><a href="{% url 'sale' %}">Распродажа<span> </span></a></li>
+					<li><a href="{% url 'accessories' %}">Аксесуары<span> </span></a></li>
+					<li><a href="{% url 'about' %}">О нас<span> </span></a></li>
+					<li><a href="{% url 'contact' %}">Контакты<span> </span></a></li>
 					<div class="clearfix"> </div>
 				</ul>
 			</div>

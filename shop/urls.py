@@ -22,4 +22,10 @@ urlpatterns = [
     path('checkout/', checkout, name='checkout'),
     # patch('add_favorite/<slug:product_slug>/', save_favorite_product, name='add_favorite'),
     # path('', Contact.as_view(), name='contact'),
+    path('collections/', collections, name='collections'),
+    path('new_arrivals/', new_arrivals, name='new_arrivals'),
+    path('sale/', sale, name='sale'),
+    path('accessories/', accessories, name='accessories'),
+    path('about/', about, name='about'),
+    path('contact/', contact, name='contact'),
 ]

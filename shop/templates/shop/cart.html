@@ -23,6 +23,7 @@
                             <th>Продукт</th>
                             <th>Цена</th>
                             <th>Количество</th>
+                            <th>Остаток на складе</th>
                             <th>Стоимость</th>
                             <th>Действия</th>
                         </tr>
@@ -52,6 +53,18 @@
                                         <a href="{% url 'to_cart' item.product.pk 'add' %}" class="quantity-link">
                                             <button type="button" class="quantity-btn">+</button>
                                         </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="stock-info">
+                                    <span class="stock-quantity{% if item.product.quantity <= 10 %} low-stock{% elif item.product.quantity == 0 %} out-of-stock{% endif %}">
+                                        {{ item.product.quantity }} шт.
+                                    </span>
+                                    {% if item.product.quantity <= 10 and item.product.quantity > 0 %}
+                                    <span class="stock-warning">Мало осталось</span>
+                                    {% elif item.product.quantity == 0 %}
+                                    <span class="stock-warning">Нет в наличии</span>
                                     {% endif %}
                                 </div>
                             </td>

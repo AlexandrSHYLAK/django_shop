@@ -22,33 +22,18 @@
 			<div class="bottom-header">
 				<div class="container">
 					<div class="bottom-header-left">
-						<p>The Finest Genuine Leather meet with Ingenious  Craftsmen Shoes Лучшая кожа и лучшие мастера</p>
+						<p>Лучшая кожа и лучшие мастера</p>
 					</div>
 					<div class="logo">
-						<a href="index.html"><img src="{% static 'shop/web/images/logo.png' %}" title="gaia" /></a>
+						<a href="index.html"><img src="{% static 'shop/web/images/logo_3.png' %}" title="gaia" /></a>
 					</div>
 					<div class="bottom-header-right">
 						<ul>
 							<li><a href="{% url 'favorite_product_page' %}">Хочу купить</a></li>
 							<li><a href="{% url 'cart' %}">Корзина</a></li>
-							<li><a href="#">Оформить заказ</a></li>
+							<li><a href="{% url 'checkout' %}">Оформить заказ</a></li>
 						</ul>
-						<div class="search-cart">
-							<div class="search-box">
-								<form>
-									<input type="text" value="Поиск..." />
-									<input type="submit" value="" />
-								</form>
-							</div>
-							<div class="cart-box">
-								<select>
-									<option> 02 Items</option>
-									<option> 03 Items</option>
-									<option> 04 Items</option>
-								</select>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
+
 					</div>
 				</div>
 			</div>

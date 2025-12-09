@@ -1,6 +1,7 @@
 from random import randint
 from unicodedata import category
 
+
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
@@ -210,6 +211,8 @@ def to_cart(request, product_id, action):
 
 
 
+
+
 def checkout(request):
     """Страница оформления заказа"""
     cart_info = get_cart_data(request)
@@ -235,4 +238,32 @@ class FavoriteProductsView(LoginRequiredMixin, ListView):
         products = [i.product for i in favs]
         return products
 
+def collections(request):
+    """Страница Коллекций"""
+    context = {'title': 'Коллекции'}
+    return render(request, 'shop/collections.html', context)
 
+def new_arrivals(request):
+    """Страница Новых поступлений"""
+    context = {'title': 'Новые поступления'}
+    return render(request, 'shop/new_arrivals.html', context)
+
+def sale(request):
+    """Страница Распродажи"""
+    context = {'title': 'Распродажи'}
+    return render(request, 'shop/sale.html', context)
+
+def accessories(request):
+    """Страница Акссесуары"""
+    context = {'title': 'Аксесуары'}
+    return render(request, 'shop/accessories.html', context)
+
+def about(request):
+    """Страница О нас"""
+    context = {'title': 'О нас'}
+    return render(request, 'shop/about.html', context)
+
+def contact(request):
+    """Страница Контактов"""
+    context = {'title': 'Контакты'}
+    return render(request, 'shop/contact.html', context)

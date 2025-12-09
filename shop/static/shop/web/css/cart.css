@@ -393,3 +393,170 @@
             }
         }
 
+/* Стили для отображения остатков на складе */
+.stock-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 4px;
+}
+
+.stock-quantity {
+    font-weight: 600;
+    color: #4f4844;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.stock-quantity.low-stock {
+    color: #d35400;
+    font-weight: 700;
+}
+
+.stock-quantity.out-of-stock {
+    color: #e74c3c;
+    font-weight: 700;
+    text-decoration: line-through;
+}
+
+.stock-warning {
+    font-size: 0.8rem;
+    color: #e74c3c;
+    background-color: rgba(231, 76, 60, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.stock-warning {
+    font-size: 0.8rem;
+    color: #d35400;
+    background-color: rgba(211, 84, 0, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+/* Обновляем специфичные стили для выравнивания содержимого ячеек */
+.cart-table td:nth-child(2), /* Цена */
+.cart-table td:nth-child(4), /* Остаток на складе */
+.cart-table td:nth-child(5), /* Общая стоимость */
+.cart-table td:nth-child(6) { /* Действия */
+    text-align: center;
+}
+
+.cart-table td:nth-child(2) .price,
+.cart-table td:nth-child(5) .item-total {
+    justify-content: center;
+}
+
+/* Адаптивность для новой колонки */
+@media (max-width: 768px) {
+    .stock-info {
+        min-height: 50px;
+        gap: 2px;
+    }
+
+    .stock-warning {
+        font-size: 0.75rem;
+        padding: 1px 4px;
+    }
+}
+
+/* Стили для формы ввода количества */
+.quantity-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.quantity-input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.quantity-input {
+    width: 60px;
+    padding: 6px 8px;
+    border: 2px solid #b0aaa0;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    background: #f7f6ee;
+    color: #4f4844;
+    transition: border-color 0.3s;
+}
+
+.quantity-input:focus {
+    outline: none;
+    border-color: #8b4613;
+    box-shadow: 0 0 0 2px rgba(139, 70, 19, 0.2);
+}
+
+.quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+    opacity: 1;
+    height: 24px;
+}
+
+.quantity-update-btn {
+    padding: 4px 12px;
+    background: #8b4613;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+.quantity-input:focus + .quantity-update-btn,
+.quantity-update-btn:hover,
+.quantity-update-btn:focus {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.quantity-update-btn:hover {
+    background: #4f4844;
+}
+
+/* Стили для отключенного состояния кнопок */
+.quantity-btn.disabled {
+    border-color: #b0aaa0;
+    color: #b0aaa0;
+    cursor: not-allowed;
+    background: #f7f6ee;
+}
+
+/* Адаптивность для формы количества */
+@media (max-width: 768px) {
+    .quantity-input {
+        width: 50px;
+        padding: 4px 6px;
+        font-size: 13px;
+    }
+
+    .quantity-update-btn {
+        padding: 3px 10px;
+        font-size: 11px;
+    }
+
+    .quantity-form {
+        gap: 6px;
+    }
+}
