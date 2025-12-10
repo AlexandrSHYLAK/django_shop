@@ -176,16 +176,25 @@
 
                 <h3>ОТЗЫВЫ</h3>
 
-        </div>
-        {% for review in reviews %}
-        <div class="container">
 
-            <h4>{{ review.author.username }}: </h4>
-            <p>{{ review.created_aat }}</p>
-            <p>{{ review.text }}</p>
-        </div>
-        {% endfor %}
-		<!-- /Product-Details-page -->
+            {% for review in reviews %}
+            <div class="review-container">
+                <div class="review-header">
+                    <h4 class="review-author">{{ review.author.username }}</h4>
+                    <span class="review-date">{{ review.created_at }}</span>
+                </div>
+
+                <div class="review-content">
+                    <p>{{ review.text }}</p>
+                </div>
+
+            </div>
+            {% empty %}
+            <div class="no-reviews">
+                <p>Пока нет отзывов. Будьте первым!</p>
+            </div>
+            {% endfor %}
+            </div><!-- /Product-Details-page -->
 
 	</body>
 </html>
