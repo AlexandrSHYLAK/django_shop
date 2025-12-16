@@ -231,6 +231,12 @@ class FavoriteProductsView(LoginRequiredMixin, ListView):
     template_name = 'shop/favorite_products.html'
     login_url = 'user_registration'
 
+    def get_context_data(self, **kwargs):
+        """Добавляем заголовок страницы в контекст"""
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Избранные товары'
+        return context
+
     def get_queryset(self):
         """Получение товаровконкретного пользователя"""
         # user = self.request.user

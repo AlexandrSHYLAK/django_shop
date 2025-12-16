@@ -1,15 +1,30 @@
-		<div class="top-nav">
-			<div class="container">
-				<span class="menu"> </span>
-				<ul>
-					<li class="active"><a href="{% url 'index' %}">Главная<span> </span></a></li>
-					<li><a href="{% url 'collections' %}">Колекции<span> </span></a></li>
-					<li><a href="{% url 'new_arrivals' %}">Новые поступления<span> </span></a></li>
-					<li><a href="{% url 'sale' %}">Распродажа<span> </span></a></li>
-					<li><a href="{% url 'accessories' %}">Аксесуары<span> </span></a></li>
-					<li><a href="{% url 'about' %}">О нас<span> </span></a></li>
-					<li><a href="{% url 'contact' %}">Контакты<span> </span></a></li>
-					<div class="clearfix"> </div>
-				</ul>
-			</div>
-		</div>
+
+<div class="top-nav">
+    <div class="container">
+        <span class="menu"> </span>
+        <ul>
+            <li class="{% if request.path == '/' or 'index' in request.path %}active{% endif %}">
+                <a href="{% url 'index' %}">Главная<span> </span></a>
+            </li>
+            <li class="{% if 'collections' in request.path %}active{% endif %}">
+                <a href="{% url 'collections' %}">Колекции<span> </span></a>
+            </li>
+            <li class="{% if 'new_arrivals' in request.path %}active{% endif %}">
+                <a href="{% url 'new_arrivals' %}">Новые поступления<span> </span></a>
+            </li>
+            <li class="{% if 'sale' in request.path %}active{% endif %}">
+                <a href="{% url 'sale' %}">Распродажа<span> </span></a>
+            </li>
+            <li class="{% if 'accessories' in request.path %}active{% endif %}">
+                <a href="{% url 'accessories' %}">Аксесуары<span> </span></a>
+            </li>
+            <li class="{% if 'about' in request.path %}active{% endif %}">
+                <a href="{% url 'about' %}">О нас<span> </span></a>
+            </li>
+            <li class="{% if 'contact' in request.path %}active{% endif %}">
+                <a href="{% url 'contact' %}">Контакты<span> </span></a>
+            </li>
+            <div class="clearfix"> </div>
+        </ul>
+    </div>
+</div>

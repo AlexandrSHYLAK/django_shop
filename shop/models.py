@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 # from django.contrib.auth.models import User
+# from phonenumber_field.modelfields import PhoneNumberField
+# from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
 
 class Category(models.Model):
@@ -121,6 +123,7 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=255, verbose_name='Фамилия')
     email = models.EmailField(verbose_name='Почта')
     phone = models.CharField(max_length=255, verbose_name='Контактный телефон')
+    # phone = PhoneNumberField(lank=True, null=True)
 
     def __str__(self):
         return self.first_name
@@ -181,6 +184,7 @@ class ShippingAddress(models.Model):
     """Адресс доставки"""
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    country = models.CharField(max_length=255, verbose_name='Страна', null=True)
     city = models.CharField(max_length=255, verbose_name='Город')
     state = models.CharField(max_length=255, verbose_name='Область')
     street = models.CharField(max_length=255, verbose_name='Улица/Дом/Квартира')
@@ -192,8 +196,6 @@ class ShippingAddress(models.Model):
     class Meta:
         verbose_name = 'Адрес доставки'
         verbose_name_plural = 'Адреса доставки'
-
-
 
 
 

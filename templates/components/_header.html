@@ -25,13 +25,30 @@
 						<p>Лучшая кожа и лучшие мастера</p>
 					</div>
 					<div class="logo">
-						<a href="index.html"><img src="{% static 'shop/web/images/logo_3.png' %}" title="gaia" /></a>
+						<a href="{% url 'index' %}"><img src="{% static 'shop/web/images/logo_3.png' %}" title="gaia" /></a>
 					</div>
 					<div class="bottom-header-right">
 						<ul>
-							<li><a href="{% url 'favorite_product_page' %}">Хочу купить</a></li>
-							<li><a href="{% url 'cart' %}">Корзина</a></li>
-							<li><a href="{% url 'checkout' %}">Оформить заказ</a></li>
+
+							<li>
+								{% if request.user.is_authenticated %}
+                            <a href="{% url 'favorite_product_page' %}">Хочу купить</a>
+                        {% else %}
+                            <a href="{% url 'login_registration' %}">Хочу купить</a>
+                        {% endif %}
+							</li>
+							<li> {% if request.user.is_authenticated %}
+                            <a href="{% url 'cart' %}">Корзина</a>
+                        {% else %}
+                            <a href="{% url 'login_registration' %}">Корзина</a>
+                        {% endif %}
+							</li>
+							<li>{% if request.user.is_authenticated %}
+                            <a href="{% url 'checkout' %}">Оформить заказ</a>
+                        {% else %}
+                            <a href="{% url 'login_registration' %}">Оформить заказ</a>
+                        {% endif %}
+							</li>
 						</ul>
 
 					</div>

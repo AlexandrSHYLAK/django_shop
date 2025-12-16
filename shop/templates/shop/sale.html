@@ -1,0 +1,16 @@
+Sale{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{%  block main %}
+<!-- banner -->
+
+{% include 'shop/components/_banner.html' %}
+<!-- banner -->
+{% include 'shop/components/_top_grids.html' %}
+<h2>Страница находится в разработке</h2>
+
+{% endblock main %}

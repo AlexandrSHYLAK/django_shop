@@ -51,8 +51,13 @@ class ShippingForm(forms.ModelForm):
 
     class Meta:
         model = ShippingAddress
-        fields = ('city', 'state', 'street')
-        widget = {'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Минск'}),
+
+        fields = ('country', 'city', 'state', 'street')
+        widgets = {'country': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Беларусь'}),
+                   'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Минск'}),
                    'state': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Минская'}),
                    'street': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Дом/Улица/Фонарь/Аптека'})
                    }
+
+
+
