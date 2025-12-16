@@ -1,9 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-# from django.contrib.auth.models import User
-# from phonenumber_field.modelfields import PhoneNumberField
-# from phonenumber_field.widgets import PhoneNumberPrefixWidget
+from phonenumber_field.modelfields import PhoneNumberField
+from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
 
 class Category(models.Model):
@@ -122,8 +121,8 @@ class Customer(models.Model):
     first_name = models.CharField(max_length=255, verbose_name='Имя')
     last_name = models.CharField(max_length=255, verbose_name='Фамилия')
     email = models.EmailField(verbose_name='Почта')
-    phone = models.CharField(max_length=255, verbose_name='Контактный телефон')
-    # phone = PhoneNumberField(lank=True, null=True)
+    # phone = models.CharField(max_length=255, verbose_name='Контактный телефон')
+    phone = PhoneNumberField(blank=True, null=True)
 
     def __str__(self):
         return self.first_name

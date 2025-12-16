@@ -46,6 +46,8 @@ class CustomerForm(forms.ModelForm):
                    'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+375291234567'})
                    }
 
+
+
 class ShippingForm(forms.ModelForm):
     """Адрес доставки"""
 

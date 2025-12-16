@@ -9,7 +9,7 @@ from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Category, Product, Review, FavoriteProducts, Mail
+from .models import Category, Product, Review, FavoriteProducts, Mail, Customer
 
 from .forms import LoginForm, RegistrationForm, ReviewForm, ShippingForm, CustomerForm
 from .utils import CartForAuthenticatedUser, get_cart_data
@@ -273,3 +273,27 @@ def contact(request):
     """Страница Контактов"""
     context = {'title': 'Контакты'}
     return render(request, 'shop/contact.html', context)
+
+
+def create_checkout_session(request):
+    if request.method == 'POST':
+        user_cart = CartForAuthenticatedUser(request)
+        cart_info = user_cart.get_cart_info()
+        customer_form = CustomerForm(data=request.POST)
+        if customer_form.is_valid():
+            customer = Customer.objects.get(user=request.user)
+            customer.firs_name = customer_form.cleaned_data['first_name']
+            customer.last_name = customer_form.cleaned_data['last_name']
+            customer.email_name = customer_form.cleaned_data['email']
+            customer.phone_name = customer_form.cleaned_data['phone']
+            customer.save()
+            shipping_form = ShippingForm(data=request.POST)
+            if shipping_form.is_valid():
+                address = shipping_form.save(commit=False)
+                address.customer = Customer.objects.get(user=request.user)
+                address.order = user_cart.get_cart_info()['order']
+                address.save()
+
+            total_price = cart_info['cart_total_price']
+            total_quantity = cart_info['cart_total_quantity']
+
